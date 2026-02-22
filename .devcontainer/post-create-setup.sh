@@ -42,6 +42,11 @@ git config --global --add safe.directory /workspaces/dagster-tutorial
 
 
 echo "INFO: Installing Gemini CLI and Specify CLI..."
+if ! command -v npm &> /dev/null; then
+    echo "npm not found. Installing nodejs and npm..."
+    sudo apt-get update
+    sudo apt-get install -y nodejs npm
+fi
 sudo npm install -g @google/gemini-cli @specifyapp/cli
 echo "INFO: Gemini CLI and Specify CLI installation complete."
 
