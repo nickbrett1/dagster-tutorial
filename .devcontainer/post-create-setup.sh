@@ -41,6 +41,9 @@ git config --global --add safe.directory /workspaces/dagster-tutorial
 
 
 
+echo "INFO: Installing Gemini CLI and Specify CLI..."
+sudo npm install -g @google/gemini-cli @specifyapp/cli
+echo "INFO: Gemini CLI and Specify CLI installation complete."
 
 echo "Setup bridget to access Chrome DevTools Protocol over a secure tunnel..."
 socat TCP-LISTEN:9222,fork,bind=127.0.0.1 TCP:host.docker.internal:9222 &
