@@ -52,3 +52,14 @@ echo "INFO: Gemini CLI and Specify CLI installation complete."
 
 echo "Setup bridget to access Chrome DevTools Protocol over a secure tunnel..."
 socat TCP-LISTEN:9222,fork,bind=127.0.0.1 TCP:host.docker.internal:9222 &
+
+echo "INFO: Checking Tailscale status..."
+if ! command -v tailscale &> /dev/null; then
+    echo "INFO: Installing Tailscale..."
+    curl -fsSL https://tailscale.com/install.sh | sh
+fi
+
+if ! pgrep -x tailscaled > /dev/null; then
+    echo "INFO: Starting Tailscale daemon..."
+    sudo start-stop-daemon --start --background --oknodo --pidfile /var/run/tailscaled.pid --make-pidfile --exec /usr/sbin/tailscaled -- --state=/var/lib/tailscale/tailscaled.state
+fi

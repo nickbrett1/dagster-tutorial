@@ -4,7 +4,10 @@
     "--sysctl",
     "net.ipv6.conf.all.disable_ipv6=1",
     "--stop-timeout",
-    "30"
+    "30",
+    "--cap-add",
+    "NET_ADMIN",
+    "--device=/dev/net/tun"
   ],
   "build": {
     "dockerfile": "Dockerfile"
@@ -26,6 +29,9 @@
       "version": "lts"
     }
   },
+  "mounts": [
+    "source=dagster-tutorial-tailscale-state,target=/var/lib/tailscale,type=volume"
+  ],
   "postCreateCommand": ".devcontainer/post-create-setup.sh",
   "postStartCommand": "bash /workspaces/dagster-tutorial/.devcontainer/post-start-setup.sh",
   "customizations": {
